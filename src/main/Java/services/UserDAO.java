@@ -20,12 +20,11 @@ public class UserDAO implements IUser{
 
         try {
             return session.createQuery("SELECT u FROM Utilisateur u " +
-                    "WHERE u.username = :username AND u.password = :pwd", Utilisateur.class)
+                    "WHERE u.username = :username AND u.passwd = :pwd", Utilisateur.class)
                     .setParameter("username", username)
                     .setParameter("pwd", passwd).getSingleResult();
         }
         catch (Exception e){
-            e.printStackTrace();
             return null;
         }
 
