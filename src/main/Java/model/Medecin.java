@@ -30,7 +30,7 @@ public class Medecin {
     @JoinColumn(name = "service_id")
     private Service service;
 
-   @ManyToMany(cascade = CascadeType.ALL)
+   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    @JoinTable(name="medecin_specialite",
            joinColumns = @JoinColumn(name = "madecin_id"),
             inverseJoinColumns = @JoinColumn(name = "specialite_id"))
