@@ -37,6 +37,12 @@
       <artifactId>hibernate-entitymanager</artifactId>
       <version>5.4.18.Final</version>
     </dependency>
+    <dependency>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb-api</artifactId>
+      <version>3.0</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>

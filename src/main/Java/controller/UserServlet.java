@@ -1,5 +1,9 @@
 package controller;
 
+import model.Utilisateur;
+import services.IUser;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +13,13 @@ import java.io.IOException;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/user")
 public class UserServlet extends HttpServlet {
+    @EJB
+    private IUser userDAO;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login= request.getParameter("username");
         String passwd=request.getParameter("passwd");
-        if(login.trim().equals("admin") && passwd.trim().equals("admin")){
+        Utilisateur u=userDAO.findUser(login, passwd);
+        if(u!=null){
             getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp")
             .forward(request,response);
         }
