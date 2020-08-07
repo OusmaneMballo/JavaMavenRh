@@ -1,15 +1,16 @@
 <%--
-  Created by IntelliJ IDEA.
+  Created by Ousmane MBALLO.
   User: mballoS
   Date: 19/07/2020
   Time: 13:53
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">--%>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
@@ -33,36 +34,44 @@
                         <th>Telephone</th>
                         <th>Address</th>
                         <th>Email</th>
-                        <th>Specialite</th>
                         <th>Service</th>
+                        <th>Specialite</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="checkthis" />
-                            </td>
-                            <td>Mohsin</td>
-                            <td>Irshad</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td>+923335586757</td>
-                            <td>
-                                <p data-placement="top" data-toggle="tooltip" title="Edit">
+                        <c:forEach items="${medecins}" var="medecin">
+                           <tr>
+                               <td>
+                                   <input type="checkbox" class="checkthis" />
+                               </td>
+                                <td>${medecin.prenom_nom}</td>
+                                <td>${medecin.datenaissance}</td>
+                                <td>${medecin.telephone}</td>
+                                <td>${medecin.adresse}</td>
+                                <td>${medecin.email}</td>
+                                <td>${medecin.service.libelle}</td>
+                                <td>
                                     <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        <span class="glyphicon glyphicon-eye-open"></span>
                                     </button>
-                                </p>
-                            </td>
-                            <td>
-                                <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                    <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </p>
-                            </td>
-                    </tr>
+                                </td>
+                                <td>
+                                    <p data-placement="top" data-toggle="tooltip" title="Edit">
+                                        <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </p>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
 

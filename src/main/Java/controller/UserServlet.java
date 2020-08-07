@@ -20,8 +20,7 @@ public class UserServlet extends HttpServlet {
         String passwd=request.getParameter("passwd");
         Utilisateur u=userDAO.findUser(login, passwd);
         if(u!=null){
-            getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp")
-            .forward(request,response);
+           response.sendRedirect("medecin?action=add");
         }
         else {
             request.setAttribute("errorLogin", "Login ou mot de passe incorrect!");

@@ -14,7 +14,8 @@ import java.io.IOException;
 public class MedecinServlet extends HttpServlet {
 
     @EJB
-    IMedecin medecindao;
+    private IMedecin medecinEJB;
+    //IMedecin medecindao;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -23,24 +24,24 @@ public class MedecinServlet extends HttpServlet {
         String action=request.getParameter("action");
         if(action!=null){
             switch(action){
-                case "add":
-                    request.setAttribute("medecins", medecindao.findAll());
-                    getServletContext().getRequestDispatcher("WEB-INF/admin.jsp")
+                case "add" :
+                    request.setAttribute("medecins", medecinEJB.findAll());
+                    getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp")
                             .forward(request, response);
                     break;
-                case "list":
+                case "list" :
                     break;
-                case "update":
+                case "update" :
                     break;
-                case "delete":
+                case "delete" :
                     break;
-                default:
+                default :
                     request.setAttribute("erreur", true);
+                    request.setAttribute("medecins", medecinEJB.findAll());
                     getServletContext().getRequestDispatcher("WEB-INF/admin.jsp")
                             .forward(request, response);
                     break;
             }
         }
-
     }
 }

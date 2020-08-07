@@ -17,6 +17,7 @@ public class MedecinDAO implements IMedecin {
 
     @Override
     public List<Medecin> findAll() {
+
         return session.createQuery("SELECT m from Medecin m", Medecin.class).list();
     }
 }
