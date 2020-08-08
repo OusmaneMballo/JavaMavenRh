@@ -1,6 +1,8 @@
 package controller;
 
 import services.IMedecin;
+import services.IService;
+import services.ISpecialite;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,7 +17,10 @@ public class MedecinServlet extends HttpServlet {
 
     @EJB
     private IMedecin medecinEJB;
-    //IMedecin medecindao;
+    @EJB
+    private ISpecialite specialiteEJB;
+    @EJB
+    private IService serviceEJB;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -26,6 +31,8 @@ public class MedecinServlet extends HttpServlet {
             switch(action){
                 case "add" :
                     request.setAttribute("medecins", medecinEJB.findAll());
+                    request.setAttribute("services", serviceEJB.findAll());
+                    //request.setAttribute("specialites", specialiteEJB.findByServiceId(2));
                     getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp")
                             .forward(request, response);
                     break;

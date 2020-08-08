@@ -10,22 +10,75 @@
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">--%>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<%--    <script src="${pageContext.request.contextPath}/js/medecin.js"></script>--%>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/medecin.js"></script>
+    <script type="text/javascript">
+        function showform() {
+            console.log("okey2");
+            document.getElementById('frm').hidden=false;
+        }
+    </script>
     <title>Title</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12"><br/><br/>
+            <button type="button" class="btn btn-primary" onclick="showform()">Nouveau Medecin</button>
+            <form method="post" action="${pageContext.request.contextPath}/medecin" id="frm" hidden>
+                <div class="form-group">
+                    <label for="prenom_nom">Prenom&Nom</label>
+                    <input type="text" name="prenom_nom" class="form-control" id="prenom_nom" placeholder="Saisissez votre prenom & nom ici"/>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="dateNaiss">Date de naissance</label>
+                        <input type="date" name="dateNaiss" class="form-control" id="dateNaiss"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="telephone">Telephone</label>
+                        <input type="text" name="telephone" class="form-control" id="telephone"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Adress</label>
+                    <input type="text" name="adresse" class="form-control" id="adresse" placeholder="Votre adresse..."/>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="xxxx@yyy.zzz"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="service">Service</label>
+                        <select id="service" name="service" class="form-control">
+                            <option value="0" selected>Choose...</option>
+                            <c:forEach items="${services}" var="service">
+                                <option value="${service.id}">${service.libelle}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="specialite">Specialite</label>
+                        <select id="specialite" name="specialite" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+            <br/>
             <h4>Liste des medecins</h4>
-            <div class="table-responsive">
+            <%--<div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
                         <th><input type="checkbox" id="checkall" /></th>
@@ -86,7 +139,49 @@
                     <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
                 </ul>
 
-            </div>
+            </div>--%>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Prenom & Nom</th>
+                    <th scope="col">Date Naiss</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Specialite</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${medecins}" var="medecin">
+                    <tr>
+                        <td>${medecin.prenom_nom}</td>
+                        <td>${medecin.datenaissance}</td>
+                        <td>${medecin.telephone}</td>
+                        <td>${medecin.adresse}</td>
+                        <td>${medecin.email}</td>
+                        <td>${medecin.service.libelle}</td>
+                        <td>
+                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-xs">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -98,7 +193,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
+                <h4 class="modal-title custom_align" id="HeadingEdit">Edit Your Detail</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -146,5 +241,39 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">--%>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </body>
 </html>

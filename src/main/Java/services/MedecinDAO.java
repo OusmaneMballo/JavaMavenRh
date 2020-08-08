@@ -12,6 +12,7 @@ public class MedecinDAO implements IMedecin {
     Session session;
 
     public MedecinDAO() {
+
         session= HibernateUtil.getSession();
     }
 
