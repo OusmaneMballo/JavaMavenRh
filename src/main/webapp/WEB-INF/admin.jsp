@@ -14,13 +14,7 @@
 <%--    <script src="${pageContext.request.contextPath}/js/medecin.js"></script>--%>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        function showform() {
-            console.log("okey2");
-            document.getElementById('frm').hidden=false;
-        }
-    </script>
-    <title>Title</title>
+    <title>Admin | Home</title>
 </head>
 <body>
 <div class="container">
@@ -59,7 +53,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="service">Service</label>
-                        <select id="service" name="service" class="form-control">
+                        <select id="service" name="service" class="form-control" required>
                             <option value="0" selected>Choose...</option>
                             <c:forEach items="${services}" var="service">
                                 <option value="${service.id}">${service.libelle}</option>
@@ -270,6 +264,27 @@
     </div>
 </div>
 <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">--%>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function showform() {
+            console.log("okey2");
+            document.getElementById('frm').hidden=false;
+        }
+
+        $("#service").change(function () {
+            $ajax({
+                method:'GET',
+                dataType: 'json',
+                data:{action:'specialitejson', service_id:$("#service").val()},
+                success:function (data) {
+
+                }
+            })
+
+        })
+
+    })
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
