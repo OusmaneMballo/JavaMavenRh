@@ -19,8 +19,10 @@
 <body>
 <script type="text/javascript">
     function showform() {
-        console.log("okey2");
         document.getElementById('frm').hidden=false;
+    }
+    function hiddenform() {
+        document.getElementById('frm').hidden=true;
     }
 </script>
 <div class="container">
@@ -75,6 +77,8 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" class="btn btn-danger" onclick="hiddenform()">Annuler</button>
+                <input type="hidden" name="action" value="add">
             </form>
             <br/>
             <h4>Liste des medecins</h4>
@@ -169,7 +173,7 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-primary btn-xs">
+                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
                         </td>

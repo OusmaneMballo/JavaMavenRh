@@ -21,4 +21,9 @@ public class SpecialiteDAO implements ISpecialite {
         return session.createQuery("select s from Specialite s join s.service srv where srv.id =: id",
                 Specialite.class).setParameter("id", id).list();
     }
+
+    @Override
+    public Specialite findById(int id) {
+        return session.find(Specialite.class, id);
+    }
 }

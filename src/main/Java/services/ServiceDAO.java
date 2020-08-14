@@ -1,6 +1,7 @@
 package services;
 
 import model.Service;
+import model.Specialite;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
@@ -17,6 +18,13 @@ public class ServiceDAO implements IService {
 
     @Override
     public List<Service> findAll() {
+
         return session.createQuery("SELECT s from Service s", Service.class).list();
+    }
+
+    @Override
+    public Service findById(int id) {
+
+        return session.find(Service.class,id);
     }
 }

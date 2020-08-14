@@ -8,4 +8,5 @@ import java.util.List;
 @Local
 public interface IService {
     public List<Service> findAll();
+    public Service findById(int id);
 }

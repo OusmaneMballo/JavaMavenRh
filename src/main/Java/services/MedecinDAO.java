@@ -21,4 +21,15 @@ public class MedecinDAO implements IMedecin {
 
         return session.createQuery("SELECT m from Medecin m", Medecin.class).list();
     }
+
+    @Override
+    public int addMedecin(Medecin m) {
+        try{
+            session.save(m);
+            return 1;
+        }catch (Exception exception){
+            exception.getStackTrace();
+        }
+        return 0;
+    }
 }

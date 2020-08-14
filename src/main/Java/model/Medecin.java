@@ -20,11 +20,23 @@ public class Medecin {
     @Column(length = 30)
     private String email;
 
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+
+    @Column(length = 30)
+    private String passwd;
+
     @Column(length = 100)
     private String adresse;
 
-    @Temporal(TemporalType.DATE)
-    private Date datenaissance;
+//    @Temporal(TemporalType.DATE)
+    @Column(length = 20)
+    private String datenaissance;
 
     @ManyToOne
     @JoinColumn(name = "service_id")
@@ -97,11 +109,11 @@ public class Medecin {
         this.adresse = adresse;
     }
 
-    public Date getDatenaissance() {
+    public String getDatenaissance() {
         return datenaissance;
     }
 
-    public void setDatenaissance(Date datenaissance) {
+    public void setDatenaissance(String datenaissance) {
         this.datenaissance = datenaissance;
     }
 }
