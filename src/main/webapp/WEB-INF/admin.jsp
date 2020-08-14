@@ -17,6 +17,12 @@
     <title>Admin | Home</title>
 </head>
 <body>
+<script type="text/javascript">
+    function showform() {
+        console.log("okey2");
+        document.getElementById('frm').hidden=false;
+    }
+</script>
 <div class="container">
     <div class="row">
         <div class="col-md-12"><br/><br/>
@@ -266,17 +272,25 @@
 <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">--%>
 <script type="text/javascript">
     $(document).ready(function () {
-        function showform() {
-            console.log("okey2");
-            document.getElementById('frm').hidden=false;
-        }
-
         $("#service").change(function () {
-            $ajax({
-                method:'GET',
+            $.ajax({
+                url:'/Rh/medecin',
+                type:'GET',
                 dataType: 'json',
-                data:{action:'specialitejson', service_id:$("#service").val()},
+                data:{
+                        action:'findByIdService',
+                        idSpecialite:$("#service").val()
+                        },
                 success:function (data) {
+                    console.log(data);
+                    var options='';
+                    $("#specialite").children().remove();
+                    data.forEach(e=>{
+                        options+="<option value='"+e.id+"'>"+e.libelle+"</option>";
+                    })
+                            $("#specialite").append(options);
+                },
+                error:function (err) {
 
                 }
             })

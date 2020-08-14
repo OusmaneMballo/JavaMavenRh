@@ -1,5 +1,7 @@
 package controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Specialite;
 import services.IMedecin;
 import services.IService;
 import services.ISpecialite;
@@ -10,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.parser.Parser;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "MedecinServlet", urlPatterns = "/medecin")
 public class MedecinServlet extends HttpServlet {
@@ -35,6 +39,14 @@ public class MedecinServlet extends HttpServlet {
                     //request.setAttribute("specialites", specialiteEJB.findByServiceId(2));
                     getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp")
                             .forward(request, response);
+                    break;
+                case "findByIdService" :
+                    int idService=Integer.parseInt(request.getParameter("idSpecialite"));
+                    List<Specialite> specialites=specialiteEJB.findByServiceId(idService);
+                    ObjectMapper mapper=new ObjectMapper();
+                    //on fait un consol.log
+                    String jsonData=mapper.writeValueAsString(specialites);
+                    response.getWriter().println(jsonData);
                     break;
                 case "list" :
                     break;
